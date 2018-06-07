@@ -1,0 +1,29 @@
+<h1>Home#index</h1>
+<%if @user%>
+  Hi, <%=@user.name%>
+<%end%>
+<%flash.each do |key, value|%>
+  <%= value %>
+<%end%>
+<h1>Listing users</h1>
+
+<table>
+  <tr>
+    <th>Email</th>
+<!--     <th>Name</th>
+ -->    <th></th>
+  </tr>
+
+  <%@users.each do |user|%>
+  <tr>
+    <td><%=user.email%></td>
+
+    <td><%= link_to 'Show', users_users_show_path(user)%></td>
+  </tr>
+  <%end%>
+</table>
+
+<%if session[:user_token] != nil%>
+<%= link_to 'Logout', sessions_logout_path %>
+  <%end%>
+<%= current_user ? (link_to "logout", destroy_user_session_path, method: :delete) : (link_to "login", new_user_session_path) %>
